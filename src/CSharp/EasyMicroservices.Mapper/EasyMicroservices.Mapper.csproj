@@ -9,10 +9,10 @@
     <Description>Map objects.</Description>
     <Copyright>EasyMicroservices@gmail.com</Copyright>
     <PackageTags>map,mapper,clone,coppy</PackageTags>
-    <PackageProjectUrl>https://github.com/EasyMicroservices/Mappers</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/EasyMicroservices/Mapper</PackageProjectUrl>
     <LangVersion>latest</LangVersion>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <DocumentationFile>.\bin\$(Configuration)\$(TargetFramework)\EasyMicroservices.Mappers.xml</DocumentationFile>
+    <DocumentationFile>.\bin\$(Configuration)\$(TargetFramework)\EasyMicroservices.Mapper.xml</DocumentationFile>
   </PropertyGroup>
 
 </Project>

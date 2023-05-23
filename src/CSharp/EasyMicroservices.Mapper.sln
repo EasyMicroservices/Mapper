@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33530.505
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasyMicroservices.Mappers", "EasyMicroservices.Mappers\EasyMicroservices.Mappers.csproj", "{5551889F-8765-420D-8843-2BAB7A9EC9D6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasyMicroservices.Mappers", "EasyMicroservices.Mapper\EasyMicroservices.Mapper.csproj", "{5551889F-8765-420D-8843-2BAB7A9EC9D6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "App", "App", "{C4B78B5D-2EF1-438A-A66B-7B0D7864E26A}"
 EndProject
