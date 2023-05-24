@@ -48,7 +48,7 @@ namespace EasyMicroservices.Mapper.Tests.Providers
             AssertEqual(mappedResult2, userContract);
         }
 
-        void AssertEqual(UserEntity userEntity,UserContract userContract)
+        void AssertEqual(UserEntity userEntity, UserContract userContract)
         {
             Assert.Equal(userEntity.Id, userContract.Id);
             Assert.Equal(userEntity.Name, userContract.Name);
