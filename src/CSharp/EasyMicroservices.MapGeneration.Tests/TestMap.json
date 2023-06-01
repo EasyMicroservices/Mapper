@@ -1,0 +1,25 @@
+{
+  "Environments": [
+    {
+      "Name": "test",
+      "GenerationPath": "ExecutionPath",
+      "BuildPath": "ExecutionPath",
+      "Groups": [
+        {
+          "DisplayName": "Test",
+          "MapFrom": {
+            "Name": "UserContract",
+            "Namespace": "EasyMicroservices.MapGeneration.Tests.Models.Contracts",
+            "AssebmlyFileName": "EasyMicroservices.MapGeneration.Tests.dll"
+
+          },
+          "MapTo": {
+            "Name": "UserEntity",
+            "Namespace": "EasyMicroservices.MapGeneration.Tests.Models.Entities",
+            "AssebmlyFileName": "EasyMicroservices.MapGeneration.Tests.dll"
+          }
+        }
+      ]
+    }
+  ]
+}
