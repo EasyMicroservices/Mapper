@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <RootNamespace>EasyMicroservices.MapGeneration</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="EasyMicroservices.FileManager" Version="0.0.0.3" />
+    <PackageReference Include="EasyMicroservices.Serialization" Version="0.0.0.1" />
+  </ItemGroup>
+
+</Project>
