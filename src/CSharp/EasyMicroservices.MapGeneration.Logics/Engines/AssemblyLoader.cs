@@ -12,11 +12,12 @@ namespace EasyMicroservices.MapGeneration.Engines
     {
         public string AssemblyFileName { get; set; }
         public string DirectoryPath { get; set; }
-
+        Assembly LoadedMainAssembly { get; set; }
         public AssemblyLoader(string assemblyFileName)
         {
             AssemblyFileName = assemblyFileName;
             DirectoryPath = Path.GetDirectoryName(AssemblyFileName);
+            LoadedMainAssembly = LoadFromAssemblyPath(AssemblyFileName);
         }
 
         readonly List<Assembly> _loadedAssemblies = new List<Assembly>();
@@ -42,15 +43,17 @@ namespace EasyMicroservices.MapGeneration.Engines
             return assembly;
         }
 
-        public IEnumerable<Type> FindType(string assemblyName, string nameSpace, string name)
+        public Type FindType(string nameSpace, string name)
         {
-            foreach (var assembly in _loadedAssemblies.Where(x => x.FullName == assemblyName))
+            return FindTypes(nameSpace, name).FirstOrDefault();
+        }
+
+        public IEnumerable<Type> FindTypes(string nameSpace, string name)
+        {
+            foreach (var type in LoadedMainAssembly.GetTypes())
             {
-                foreach (var type in assembly.GetTypes())
-                {
-                    if (type.Namespace == nameSpace && type.Name == name)
-                        yield return type;
-                }
+                if (type.Namespace == nameSpace && type.Name == name)
+                    yield return type;
             }
         }
 
