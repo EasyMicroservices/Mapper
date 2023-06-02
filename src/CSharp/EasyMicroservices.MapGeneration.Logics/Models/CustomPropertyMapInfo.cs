@@ -7,9 +7,10 @@ using System.Threading.Tasks;
 
 namespace EasyMicroservices.MapGeneration.Models
 {
-    public class PropertyMapInfo
+    public class CustomPropertyMapInfo
     {
-        public string Name { get; set; }
+        public string FromName { get; set; }
+        public string ToName { get; set; }
         public MapPropertyType MapType { get; set; } = MapPropertyType.Both;
     }
 }
