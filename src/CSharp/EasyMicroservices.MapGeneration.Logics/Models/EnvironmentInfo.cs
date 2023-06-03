@@ -1,8 +1,6 @@
-﻿using System;
+﻿using EasyMicroservices.MapGeneration.Options;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EasyMicroservices.MapGeneration.Models
 {
@@ -12,5 +10,16 @@ namespace EasyMicroservices.MapGeneration.Models
         public string GenerationPath { get; set; }
         public string BuildPath { get; set; }
         public List<GroupMapInfo> Groups { get; set; } = new List<GroupMapInfo>();
+
+
+        public string GetGenerationPath()
+        {
+            return GenerationPath.Replace(PathConstants.ExecutionPath,AppDomain.CurrentDomain.BaseDirectory);
+        }
+
+        public string GetBuildPath()
+        {
+            return BuildPath.Replace(PathConstants.ExecutionPath, AppDomain.CurrentDomain.BaseDirectory);
+        }
     }
 }

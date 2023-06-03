@@ -12,5 +12,6 @@ namespace EasyMicroservices.MapGeneration.Models
         public ClassMapInfo MapFrom { get; set; } = new ClassMapInfo();
         public ClassMapInfo MapTo { get; set; } = new ClassMapInfo();
         public List<PropertyMapInfo> SkippedProperties { get; set; } = new List<PropertyMapInfo>();
+        public List<CustomPropertyMapInfo> CustomProperties { get; set; } = new List<CustomPropertyMapInfo>();
     }
 }
