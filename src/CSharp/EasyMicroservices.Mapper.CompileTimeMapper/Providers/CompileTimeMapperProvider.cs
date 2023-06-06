@@ -35,7 +35,10 @@ namespace EasyMicroservices.Mapper.CompileTimeMapper.Providers
                     mappers[toType] = mapper;
             }
             else
+            {
+                Mappers[fromType] = new Dictionary<Type, IMapper>();
                 Mappers[fromType][toType] = mapper;
+            }
         }
 
         /// <summary>
