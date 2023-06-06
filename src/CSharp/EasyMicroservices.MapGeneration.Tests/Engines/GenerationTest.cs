@@ -23,7 +23,7 @@ namespace EasyMicroservices.MapGeneration.Tests.Engines
             EnvironmentLoader loader = new EnvironmentLoader(new NewtonsoftJsonProvider(), new DiskFileProvider(new DiskDirectoryProvider(appPath, pathProvider)));
             await loader.Load(pathProvider.Combine(appPath, "TestMap.json"));
             Generation generation = new Generation(loader.AppData.Environments.First());
-            await generation.Build();
+            var build = await generation.Build();
         }
     }
 }
