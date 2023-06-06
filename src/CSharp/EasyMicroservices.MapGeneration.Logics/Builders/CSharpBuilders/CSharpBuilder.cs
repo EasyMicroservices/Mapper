@@ -72,7 +72,10 @@ namespace EasyMicroservices.MapGeneration.Builders.CSharpBuilders
         {
             builder.Append(propertySchema.FromName);
             builder.Append(" = ");
-            builder.Append($"fromObject.{propertySchema.ToName}");
+            if (propertySchema.IsCustomMap)
+                builder.Append($"{propertySchema.ToName[1..]}");
+            else
+                builder.Append($"fromObject.{propertySchema.ToName}");
             builder.AppendLine(",");
             return Task.CompletedTask;
         }

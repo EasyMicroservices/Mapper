@@ -37,6 +37,11 @@
               "FromName": "ChildrenCount",
               "ToName": "Children",
               "MapType": 8
+            },
+            {
+              "FromName": "CustomName",
+              "ToName": "$\"Ali\"",
+              "MapType": 8
             }
           ]
         }

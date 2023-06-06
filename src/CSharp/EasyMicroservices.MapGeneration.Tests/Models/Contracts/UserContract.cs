@@ -16,5 +16,6 @@ namespace EasyMicroservices.MapGeneration.Tests.Models.Contracts
         public string PhoneNumber { get; set; }
         public bool IsMarried { get; set; }
         public int Children { get; set; }
+        public string CustomName { get; set; }
     }
 }

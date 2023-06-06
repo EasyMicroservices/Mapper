@@ -80,24 +80,25 @@ namespace EasyMicroservices.MapGeneration.Engines
                         FromName = fromProperty.Name,
                         ToName = similarProperty.Name,
                         FromType = fromProperty.PropertyType,
-                        ToType = similarProperty.PropertyType
+                        ToType = similarProperty.Type,
+                        IsCustomMap = similarProperty.Type == null
                     });
                 }
             }
             return Task.FromResult(result);
         }
 
-        PropertyInfo FindSimilarProperty(PropertyInfo property, List<PropertyInfo> toProperties)
+        CustomPropertyInfo FindSimilarProperty(PropertyInfo property, List<PropertyInfo> toProperties)
         {
             return toProperties.FirstOrDefault(x => x.Name == property.Name && x.PropertyType == property.PropertyType);
         }
 
-        PropertyInfo FindSimilarProperty(string name, Type propertyType, List<PropertyInfo> toProperties)
+        CustomPropertyInfo FindSimilarProperty(string name, Type propertyType, List<PropertyInfo> toProperties)
         {
             return toProperties.FirstOrDefault(x => x.Name == name && x.PropertyType == propertyType);
         }
 
-        public PropertyInfo FindFromProperty(List<PropertyInfo> toProperties, List<CustomPropertyMapInfo> customPropertiers, string name, Type propertyType)
+        public CustomPropertyInfo FindFromProperty(List<PropertyInfo> toProperties, List<CustomPropertyMapInfo> customPropertiers, string name, Type propertyType)
         {
             var customProperty = customPropertiers.FirstOrDefault(x => x.FromName == name);
             if (customProperty != null)
@@ -105,12 +106,17 @@ namespace EasyMicroservices.MapGeneration.Engines
                 var similarProperty = FindSimilarProperty(customProperty.FromName, propertyType, toProperties);
                 if (similarProperty == null)
                     similarProperty = FindSimilarProperty(customProperty.ToName, propertyType, toProperties);
+                if (similarProperty == null)
+                {
+                    if (customProperty.ToName.StartsWith("$"))
+                        return customProperty.ToName;
+                }
                 return similarProperty;
             }
-            return null;
+            return default;
         }
 
-        public PropertyInfo FindToProperty(List<PropertyInfo> toProperties, List<CustomPropertyMapInfo> customPropertiers, string name, Type propertyType)
+        public CustomPropertyInfo FindToProperty(List<PropertyInfo> toProperties, List<CustomPropertyMapInfo> customPropertiers, string name, Type propertyType)
         {
             var customProperty = customPropertiers.FirstOrDefault(x => x.ToName == name);
             if (customProperty != null)
@@ -118,9 +124,14 @@ namespace EasyMicroservices.MapGeneration.Engines
                 var similarProperty = FindSimilarProperty(customProperty.ToName, propertyType, toProperties);
                 if (similarProperty == null)
                     similarProperty = FindSimilarProperty(customProperty.FromName, propertyType, toProperties);
+                if (similarProperty == null)
+                {
+                    if (customProperty.ToName.StartsWith("$"))
+                        return customProperty.ToName;
+                }
                 return similarProperty;
             }
-            return null;
+            return default;
         }
 
         public List<PropertyInfo> GetProperties(Type type)
