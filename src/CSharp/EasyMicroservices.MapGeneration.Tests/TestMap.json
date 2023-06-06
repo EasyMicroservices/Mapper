@@ -17,7 +17,28 @@
             "Name": "UserEntity",
             "Namespace": "EasyMicroservices.MapGeneration.Tests.Models.Entities",
             "AssebmlyFileName": "EasyMicroservices.MapGeneration.Tests.dll"
-          }
+          },
+          "SkippedProperties": [
+            {
+              "Name": "PhoneNumber",
+              "MapType": 8
+            },
+            {
+              "Name": "IsMarried",
+              "MapType": 8
+            },
+            {
+              "Name": "Age",
+              "MapType": 8
+            }
+          ],
+          "CustomProperties": [
+            {
+              "FromName": "ChildrenCount",
+              "ToName": "Children",
+              "MapType": 8
+            }
+          ]
         }
       ]
     }

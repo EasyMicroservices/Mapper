@@ -14,5 +14,6 @@ namespace EasyMicroservices.MapGeneration.Tests.Models.Entities
         public string Password { get; set; }
         public string UserName { get; set; }
         public int Age { get; set; }
+        public int ChildrenCount { get; set; }
     }
 }

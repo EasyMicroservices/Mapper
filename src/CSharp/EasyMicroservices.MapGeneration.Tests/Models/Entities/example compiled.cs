@@ -13,6 +13,7 @@
                 Email = fromObject.Email,
                 Password = fromObject.Password,
                 UserName = fromObject.UserName,
+                Children = fromObject.ChildrenCount,
             };
             return mapped;
         }
@@ -27,9 +28,9 @@
                 Email = fromObject.Email,
                 Password = fromObject.Password,
                 UserName = fromObject.UserName,
+                ChildrenCount = fromObject.Children,
             };
             return mapped;
         }
     }
 }
-

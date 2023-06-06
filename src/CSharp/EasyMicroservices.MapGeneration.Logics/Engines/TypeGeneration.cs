@@ -103,6 +103,8 @@ namespace EasyMicroservices.MapGeneration.Engines
             if (customProperty != null)
             {
                 var similarProperty = FindSimilarProperty(customProperty.FromName, propertyType, toProperties);
+                if (similarProperty == null)
+                    similarProperty = FindSimilarProperty(customProperty.ToName, propertyType, toProperties);
                 return similarProperty;
             }
             return null;
@@ -114,6 +116,8 @@ namespace EasyMicroservices.MapGeneration.Engines
             if (customProperty != null)
             {
                 var similarProperty = FindSimilarProperty(customProperty.ToName, propertyType, toProperties);
+                if (similarProperty == null)
+                    similarProperty = FindSimilarProperty(customProperty.FromName, propertyType, toProperties);
                 return similarProperty;
             }
             return null;
