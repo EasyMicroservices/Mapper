@@ -15,8 +15,11 @@ namespace EasyMicroservices.Mapper.Providers
         /// <typeparam name="TFrom"></typeparam>
         /// <typeparam name="TTo"></typeparam>
         /// <param name="fromObject"></param>
+        /// <param name="uniqueRecordId"></param>
+        /// <param name="language"></param>
+        /// <param name="parameters"></param>
         /// <returns></returns>
-        public TTo Map<TFrom, TTo>(TFrom fromObject)
+        public TTo Map<TFrom, TTo>(TFrom fromObject, string uniqueRecordId = default, string language = default, params object[] parameters)
         {
             return Map<TTo>(fromObject);
         }
@@ -26,16 +29,22 @@ namespace EasyMicroservices.Mapper.Providers
         /// </summary>
         /// <typeparam name="TTo"></typeparam>
         /// <param name="fromObject"></param>
+        /// <param name="uniqueRecordId"></param>
+        /// <param name="language"></param>
+        /// <param name="parameters"></param>
         /// <returns></returns>
-        public abstract TTo Map<TTo>(object fromObject);
+        public abstract TTo Map<TTo>(object fromObject, string uniqueRecordId = default, string language = default, params object[] parameters);
 
         /// <summary>
         /// 
         /// </summary>
         /// <typeparam name="TTo"></typeparam>
         /// <param name="fromObject"></param>
+        /// <param name="uniqueRecordId"></param>
+        /// <param name="language"></param>
+        /// <param name="parameters"></param>
         /// <returns></returns>
-        public List<TTo> MapSingleToList<TTo>(object fromObject)
+        public List<TTo> MapSingleToList<TTo>(object fromObject, string uniqueRecordId = default, string language = default, params object[] parameters)
         {
             return new List<TTo>()
             {
@@ -48,8 +57,11 @@ namespace EasyMicroservices.Mapper.Providers
         /// </summary>
         /// <typeparam name="TTo"></typeparam>
         /// <param name="fromObject"></param>
+        /// <param name="uniqueRecordId"></param>
+        /// <param name="language"></param>
+        /// <param name="parameters"></param>
         /// <returns></returns>
-        public TTo MapToFirst<TTo>(IEnumerable fromObject)
+        public TTo MapToFirst<TTo>(IEnumerable fromObject, string uniqueRecordId = default, string language = default, params object[] parameters)
         {
             if (fromObject == null)
                 return default;
@@ -64,8 +76,11 @@ namespace EasyMicroservices.Mapper.Providers
         /// </summary>
         /// <typeparam name="TTo"></typeparam>
         /// <param name="fromObject"></param>
+        /// <param name="uniqueRecordId"></param>
+        /// <param name="language"></param>
+        /// <param name="parameters"></param>
         /// <returns></returns>
-        public List<TTo> MapToList<TTo>(IEnumerable fromObject)
+        public List<TTo> MapToList<TTo>(IEnumerable fromObject, string uniqueRecordId = default, string language = default, params object[] parameters)
         {
             if (fromObject == null)
                 return default;

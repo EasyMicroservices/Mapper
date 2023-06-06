@@ -14,6 +14,7 @@
                 Password = fromObject.Password,
                 UserName = fromObject.UserName,
                 Children = fromObject.ChildrenCount,
+                CustomName = "Ali",
             };
             return mapped;
         }
