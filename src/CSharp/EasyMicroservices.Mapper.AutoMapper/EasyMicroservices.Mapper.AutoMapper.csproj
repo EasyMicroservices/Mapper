@@ -5,7 +5,7 @@
     <Platforms>AnyCPU;x64;x86</Platforms>
     <Authors>EasyMicroservices</Authors>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>0.0.0.1</Version>
+    <Version>0.0.0.2</Version>
     <Description>Map objects.</Description>
     <Copyright>EasyMicroservices@gmail.com</Copyright>
     <PackageTags>map,mapper,clone,coppy</PackageTags>
@@ -14,10 +14,6 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <DocumentationFile>.\bin\$(Configuration)\$(TargetFramework)\EasyMicroservices.Mapper.AutoMapper.xml</DocumentationFile>
   </PropertyGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\EasyMicroservices.Mapper\EasyMicroservices.Mapper.csproj" />
-  </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.1'">
     <PackageReference Include="AutoMapper">
@@ -29,6 +25,10 @@
     <PackageReference Include="AutoMapper">
       <Version>12.0.1</Version>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EasyMicroservices.Mapper\EasyMicroservices.Mapper.csproj" />
   </ItemGroup>
 
 </Project>

@@ -12,5 +12,6 @@ namespace EasyMicroservices.MapGeneration.Models.BuildModels
         public string ToName { get; set; }
         public Type FromType { get; set; }
         public Type ToType { get; set; }
+        public bool IsCustomMap { get; set; }
     }
 }

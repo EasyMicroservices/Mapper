@@ -1,12 +1,12 @@
 {
   "Environments": [
     {
-      "Name": "test",
+      "Name": "TestMap",
       "GenerationPath": "ExecutionPath",
       "BuildPath": "ExecutionPath",
       "Groups": [
         {
-          "DisplayName": "Test",
+          "DisplayName": "User",
           "MapFrom": {
             "Name": "UserContract",
             "Namespace": "EasyMicroservices.MapGeneration.Tests.Models.Contracts",
@@ -17,7 +17,49 @@
             "Name": "UserEntity",
             "Namespace": "EasyMicroservices.MapGeneration.Tests.Models.Entities",
             "AssebmlyFileName": "EasyMicroservices.MapGeneration.Tests.dll"
-          }
+          },
+          "SkippedProperties": [
+            {
+              "Name": "PhoneNumber",
+              "MapType": 8
+            },
+            {
+              "Name": "IsMarried",
+              "MapType": 8
+            },
+            {
+              "Name": "Age",
+              "MapType": 8
+            }
+          ],
+          "CustomProperties": [
+            {
+              "FromName": "ChildrenCount",
+              "ToName": "Children",
+              "MapType": 8
+            },
+            {
+              "FromName": "CustomName",
+              "ToName": "$\"Ali\"",
+              "MapType": 8
+            }
+          ]
+        },
+        {
+          "DisplayName": "Post",
+          "MapFrom": {
+            "Name": "PostContract",
+            "Namespace": "EasyMicroservices.MapGeneration.Tests.Models.Contracts",
+            "AssebmlyFileName": "EasyMicroservices.MapGeneration.Tests.dll"
+
+          },
+          "MapTo": {
+            "Name": "PostEntity",
+            "Namespace": "EasyMicroservices.MapGeneration.Tests.Models.Entities",
+            "AssebmlyFileName": "EasyMicroservices.MapGeneration.Tests.dll"
+          },
+          "SkippedProperties": [],
+          "CustomProperties": []
         }
       ]
     }

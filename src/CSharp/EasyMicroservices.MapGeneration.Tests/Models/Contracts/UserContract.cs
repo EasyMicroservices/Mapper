@@ -13,5 +13,11 @@ namespace EasyMicroservices.MapGeneration.Tests.Models.Contracts
         public string Email { get; set; }
         public string Password { get; set; }
         public string UserName { get; set; }
+        public string PhoneNumber { get; set; }
+        public bool IsMarried { get; set; }
+        public int Children { get; set; }
+        public string CustomName { get; set; }
+
+        public ICollection<PostContract> Posts { get; set; }
     }
 }

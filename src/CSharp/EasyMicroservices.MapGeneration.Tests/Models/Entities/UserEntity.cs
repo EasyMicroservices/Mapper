@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace EasyMicroservices.MapGeneration.Tests.Models.Entities
 {
@@ -13,5 +9,8 @@ namespace EasyMicroservices.MapGeneration.Tests.Models.Entities
         public string Email { get; set; }
         public string Password { get; set; }
         public string UserName { get; set; }
+        public int Age { get; set; }
+        public int ChildrenCount { get; set; }
+        public ICollection<PostEntity> Posts { get; set; }
     }
 }

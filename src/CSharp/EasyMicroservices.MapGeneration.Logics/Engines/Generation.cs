@@ -1,4 +1,5 @@
 ﻿using EasyMicroservices.MapGeneration.Models;
+using EasyMicroservices.MapGeneration.Models.BuildModels;
 using System.Threading.Tasks;
 
 namespace EasyMicroservices.MapGeneration.Engines
@@ -11,18 +12,23 @@ namespace EasyMicroservices.MapGeneration.Engines
             _environment = environment;
         }
 
-        public async Task Build()
+        public async Task<EnvironmentSchemaBuild> Build()
         {
+            EnvironmentSchemaBuild environmentSchemaBuild = new EnvironmentSchemaBuild()
+            {
+
+            };
             foreach (var group in _environment.Groups)
             {
-                await BuildGroup(_environment, group);
+                environmentSchemaBuild.Classes.Add(await BuildGroup(_environment, group));
             }
+            return environmentSchemaBuild;
         }
 
-        async Task BuildGroup(EnvironmentInfo environment, GroupMapInfo groupMap)
+        async Task<ClassSchemaBuild> BuildGroup(EnvironmentInfo environment, GroupMapInfo groupMap)
         {
             var builder = new GroupGeneration(environment.GetBuildPath(), groupMap);
-            var build = await builder.Build();
+            return await builder.Build();
         }
     }
 }
