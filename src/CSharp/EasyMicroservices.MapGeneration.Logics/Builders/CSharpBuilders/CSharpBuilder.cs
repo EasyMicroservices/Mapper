@@ -26,11 +26,22 @@ namespace EasyMicroservices.MapGeneration.Builders.CSharpBuilders
         {
             builder.AppendTabSpace(1);
             builder.AppendLine($"public class {classSchema.Name}");
-
             builder.AppendTabSpace(1);
             builder.AppendLine("{");
+            builder.AppendTabSpace(2);
+            builder.AppendLine($"readonly IMapper _mapper;");
+            builder.AppendTabSpace(2);
+            builder.AppendLine($"public {classSchema.Name}(IMapper mapper)");
+            builder.AppendTabSpace(2);
+            builder.AppendLine("{");
+            builder.AppendTabSpace(3);
+            builder.AppendLine("_mapper = mapper;");
+            builder.AppendTabSpace(2);
+            builder.AppendLine("}");
+            builder.AppendLine();
 
             await ClassBuild(classSchema.FromType, classSchema.ToType, classSchema.FromMapProperties);
+            builder.AppendLine();
             await ClassBuild(classSchema.ToType, classSchema.FromType, classSchema.ToMapProperties);
 
             builder.AppendTabSpace(1);
@@ -68,15 +79,55 @@ namespace EasyMicroservices.MapGeneration.Builders.CSharpBuilders
 
         }
 
-        public Task PropertyBuild(PropertySchemaBuild propertySchema)
+        public async Task PropertyBuild(PropertySchemaBuild propertySchema)
         {
             builder.Append(propertySchema.FromName);
             builder.Append(" = ");
             if (propertySchema.IsCustomMap)
                 builder.Append($"{propertySchema.ToName[1..]}");
+            else if (CSharpBuilderReflection.IsSimple(propertySchema.FromType) || CSharpBuilderReflection.IsSimple(propertySchema.ToType))
+            {
+                await SimplePropertyBuild(propertySchema);
+            }
+            else if (CSharpBuilderReflection.IsArray(propertySchema.FromType) || CSharpBuilderReflection.IsArray(propertySchema.ToType))
+            {
+                await ArrayPropertyBuild(propertySchema);
+            }
+            else if (CSharpBuilderReflection.IsCollection(propertySchema.FromType) || CSharpBuilderReflection.IsCollection(propertySchema.ToType))
+            {
+                await CollectionPropertyBuild(propertySchema);
+            }
             else
-                builder.Append($"fromObject.{propertySchema.ToName}");
+            {
+                await ObjectPropertyBuild(propertySchema);
+            }
             builder.AppendLine(",");
+        }
+
+        public Task SimplePropertyBuild(PropertySchemaBuild propertySchema)
+        {
+            builder.Append($"fromObject.{propertySchema.ToName}");
+            return Task.CompletedTask;
+        }
+
+        public Task ArrayPropertyBuild(PropertySchemaBuild propertySchema)
+        {
+            if (CSharpBuilderReflection.IsSimple(propertySchema.FromType.GetElementType()) || CSharpBuilderReflection.IsSimple(propertySchema.ToType.GetElementType()))
+                builder.Append($"fromObject.{propertySchema.ToName}");
+            else
+                builder.Append($"_mapper.MapToList(fromObject.{propertySchema.ToName}).ToArray()");
+            return Task.CompletedTask;
+        }
+
+        public Task CollectionPropertyBuild(PropertySchemaBuild propertySchema)
+        {
+            builder.Append($"_mapper.MapToList(fromObject.{propertySchema.ToName})");
+            return Task.CompletedTask;
+        }
+
+        public Task ObjectPropertyBuild(PropertySchemaBuild propertySchema)
+        {
+            builder.Append($"_mapper.Map(fromObject.{propertySchema.ToName})");
             return Task.CompletedTask;
         }
     }

@@ -90,12 +90,12 @@ namespace EasyMicroservices.MapGeneration.Engines
 
         CustomPropertyInfo FindSimilarProperty(PropertyInfo property, List<PropertyInfo> toProperties)
         {
-            return toProperties.FirstOrDefault(x => x.Name == property.Name && x.PropertyType == property.PropertyType);
+            return toProperties.OrderBy(x => x.PropertyType == property.PropertyType).FirstOrDefault(x => x.Name == property.Name);
         }
 
         CustomPropertyInfo FindSimilarProperty(string name, Type propertyType, List<PropertyInfo> toProperties)
         {
-            return toProperties.FirstOrDefault(x => x.Name == name && x.PropertyType == propertyType);
+            return toProperties.OrderBy(x => x.PropertyType == propertyType).FirstOrDefault(x => x.Name == name);
         }
 
         public CustomPropertyInfo FindFromProperty(List<PropertyInfo> toProperties, List<CustomPropertyMapInfo> customPropertiers, string name, Type propertyType)

@@ -17,5 +17,7 @@ namespace EasyMicroservices.MapGeneration.Tests.Models.Contracts
         public bool IsMarried { get; set; }
         public int Children { get; set; }
         public string CustomName { get; set; }
+
+        public ICollection<PostContract> Posts { get; set; }
     }
 }
