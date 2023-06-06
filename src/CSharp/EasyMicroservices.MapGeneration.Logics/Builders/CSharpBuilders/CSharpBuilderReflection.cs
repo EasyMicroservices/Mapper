@@ -62,7 +62,12 @@ namespace EasyMicroservices.MapGeneration.Builders.CSharpBuilders
         {
             if (type == null)
                 return false;
-            return SimpleTypes.Contains(type);
+            if (!SimpleTypes.Contains(type))
+            {
+                if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>))
+                    return SimpleTypes.Contains(type.GetGenericArguments()[0]);
+            }
+            return true;
         }
 
         public static bool IsArray(Type type)

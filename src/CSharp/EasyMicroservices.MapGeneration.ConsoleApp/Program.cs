@@ -32,7 +32,7 @@ namespace EasyMicroservices.MapGeneration.ConsoleApp
                 var environmentSchemaBuild = await generation.Build();
                 CSharpBuilder cSharpBuilder = new CSharpBuilder();
                 var compiled = await cSharpBuilder.Build(environmentSchemaBuild);
-                string savedToPath = pathProvider.Combine(AppDomain.CurrentDomain.BaseDirectory, "CompileTimeClassesMappers.cs");
+                string savedToPath = pathProvider.Combine(loader.AppData.Environments.First().GenerationPath, "CompileTimeClassesMappers.cs");
                 await File.WriteAllTextAsync(savedToPath, compiled.ToString(), Encoding.UTF8);
                 Console.WriteLine($"Generated to {savedToPath}");
                 await File.WriteAllTextAsync(lastFileOppened, jsonFilePath, Encoding.UTF8);
