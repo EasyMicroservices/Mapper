@@ -54,7 +54,7 @@ namespace EasyMicroservices.Mapper.CompileTimeMapper.Providers
                 return default;
             if (Mappers.TryGetValue(fromObject.GetType(), out Dictionary<Type, IMapper> mappers))
             {
-                if (mappers.TryGetValue(typeof(TTo),out IMapper mapper))
+                if (mappers.TryGetValue(typeof(TTo), out IMapper mapper))
                 {
                     return (TTo)mapper.MapObject(fromObject, uniqueRecordId, language, parameters);
                 }
