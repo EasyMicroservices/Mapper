@@ -22,7 +22,10 @@ namespace EasyMicroservices.MapGeneration.Engines
 
             var mapFromType = fromAssemblyLoader.FindType(_groupMap.MapFrom.Namespace, _groupMap.MapFrom.Name);
             var mapToType = toAssemblyLoader.FindType(_groupMap.MapTo.Namespace, _groupMap.MapTo.Name);
-
+            if (mapFromType == null)
+                throw new System.Exception($"Type {_groupMap.MapFrom.Namespace}.{_groupMap.MapFrom.Name} not found!");
+            else if (mapToType == null)
+                throw new System.Exception($"Type {_groupMap.MapTo.Namespace}.{_groupMap.MapTo.Name} not found!");
             var classMapResult = await new TypeGeneration(mapFromType, mapToType, _groupMap.SkippedProperties, _groupMap.CustomProperties).Build();
 
             return classMapResult;

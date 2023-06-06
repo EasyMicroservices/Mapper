@@ -17,6 +17,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test-Layer", "Test-Layer", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyMicroservices.MapGeneration.Tests", "EasyMicroservices.MapGeneration.Tests\EasyMicroservices.MapGeneration.Tests.csproj", "{5E92587B-DB22-411D-B980-9C55CF6D6BBF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyMicroservices.MapGeneration.ConsoleApp", "EasyMicroservices.MapGeneration.ConsoleApp\EasyMicroservices.MapGeneration.ConsoleApp.csproj", "{66FB64C1-6160-44F9-A258-62BBF7A0B8AA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{5E92587B-DB22-411D-B980-9C55CF6D6BBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5E92587B-DB22-411D-B980-9C55CF6D6BBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5E92587B-DB22-411D-B980-9C55CF6D6BBF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66FB64C1-6160-44F9-A258-62BBF7A0B8AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66FB64C1-6160-44F9-A258-62BBF7A0B8AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66FB64C1-6160-44F9-A258-62BBF7A0B8AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66FB64C1-6160-44F9-A258-62BBF7A0B8AA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -48,6 +54,7 @@ Global
 		{12AC0655-6377-4165-BB77-3D7AD77C2900} = {0D30848C-8242-4068-9EA8-058E93759F4E}
 		{E6FDF198-126B-4B4C-A592-FCA2B7FC7C18} = {0D30848C-8242-4068-9EA8-058E93759F4E}
 		{5E92587B-DB22-411D-B980-9C55CF6D6BBF} = {D034A598-0896-4ED2-A70A-1BB5B051BA82}
+		{66FB64C1-6160-44F9-A258-62BBF7A0B8AA} = {E6C7EAE8-0659-47D1-8FB3-400137D9BFE6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7DD1888F-655B-4726-B679-AD679D40C709}
