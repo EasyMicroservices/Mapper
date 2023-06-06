@@ -9,6 +9,7 @@ namespace EasyMicroservices.MapGeneration.Models
         public string Name { get; set; }
         public string GenerationPath { get; set; }
         public string BuildPath { get; set; }
+        public List<string> NameSpaces { get; set; } = new List<string>();
         public List<GroupMapInfo> Groups { get; set; } = new List<GroupMapInfo>();
 
 
