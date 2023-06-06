@@ -1,5 +1,6 @@
 ﻿using EasyMicroservices.MapGeneration.DataTypes;
 using EasyMicroservices.MapGeneration.Models;
+using EasyMicroservices.MapGeneration.Models.BuildModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,27 +22,34 @@ namespace EasyMicroservices.MapGeneration.Engines
             _skippedProperties = skippedProperties;
         }
 
-        public async Task Build()
+        public async Task<ClassSchemaBuild> Build()
         {
             var fromProperties = GetProperties(_fromType);
             var toProperties = GetProperties(_toType);
+            ClassSchemaBuild result = new ClassSchemaBuild()
+            {
+                   Name = $"{_fromType.Name}_{_toType.Name}_Mapper"
+            };
 
-            await Build(SkipProperties(fromProperties, _skippedProperties, MapPropertyType.OnlyFrom), toProperties,
-                _customPropertiers.Where(x => x.MapType == MapPropertyType.OnlyFrom || x.MapType == MapPropertyType.Both).ToList());
+            result.FromMapProperties.AddRange(await Build(SkipProperties(fromProperties, _skippedProperties, MapPropertyType.OnlyFrom), toProperties,
+                _customPropertiers.Where(x => x.MapType == MapPropertyType.OnlyFrom || x.MapType == MapPropertyType.Both).ToList()));
 
-            await Build(SkipProperties(toProperties, _skippedProperties, MapPropertyType.OnlyTo), fromProperties,
-                 _customPropertiers.Where(x => x.MapType == MapPropertyType.OnlyTo || x.MapType == MapPropertyType.Both).ToList());
+            result.ToMapProperties.AddRange(await Build(SkipProperties(toProperties, _skippedProperties, MapPropertyType.OnlyTo), fromProperties,
+                 _customPropertiers.Where(x => x.MapType == MapPropertyType.OnlyTo || x.MapType == MapPropertyType.Both).ToList()));
+
+            return result;
         }
 
         List<PropertyInfo> SkipProperties(List<PropertyInfo> fromProperties, List<PropertyMapInfo> skippedProperties, MapPropertyType mapPropertyType)
         {
             skippedProperties = skippedProperties.Where(x => x.MapType == MapPropertyType.Both || x.MapType == mapPropertyType).ToList();
-            return fromProperties.Where(x => skippedProperties.Any(y => x.Name == y.Name)).ToList();
+            return fromProperties.Where(x => !skippedProperties.Any(y => x.Name == y.Name)).ToList();
         }
 
-        Task Build(List<PropertyInfo> fromProperties, List<PropertyInfo> toProperties,
+        Task<List<PropertySchemaBuild>> Build(List<PropertyInfo> fromProperties, List<PropertyInfo> toProperties,
             List<CustomPropertyMapInfo> customPropertiers)
         {
+            List<PropertySchemaBuild> result = new List<PropertySchemaBuild>();
             foreach (var fromProperty in fromProperties)
             {
                 var similarProperty = FindSimilarProperty(fromProperty, toProperties);
@@ -56,14 +64,26 @@ namespace EasyMicroservices.MapGeneration.Engines
 
                 if (similarProperty == null)
                 {
-
+                    result.Add(new PropertySchemaBuild()
+                    {
+                        FromName = fromProperty.Name,
+                        ToName = $"{fromProperty.Name}_Not_Found",
+                        FromType = fromProperty.PropertyType,
+                        ToType = null
+                    });
                 }
                 else
                 {
-
+                    result.Add(new PropertySchemaBuild()
+                    {
+                        FromName = fromProperty.Name,
+                        ToName = similarProperty.Name,
+                        FromType = fromProperty.PropertyType,
+                        ToType = similarProperty.PropertyType
+                    });
                 }
             }
-            return Task.CompletedTask;
+            return Task.FromResult(result);
         }
 
         PropertyInfo FindSimilarProperty(PropertyInfo property, List<PropertyInfo> toProperties)
