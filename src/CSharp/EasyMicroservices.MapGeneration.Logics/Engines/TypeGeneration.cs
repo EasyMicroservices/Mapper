@@ -28,9 +28,10 @@ namespace EasyMicroservices.MapGeneration.Engines
             var toProperties = GetProperties(_toType);
             ClassSchemaBuild result = new ClassSchemaBuild()
             {
-                   Name = $"{_fromType.Name}_{_toType.Name}_Mapper"
+                Name = $"{_fromType.Name}_{_toType.Name}_Mapper",
+                FromType = _fromType,
+                ToType = _toType
             };
-
             result.FromMapProperties.AddRange(await Build(SkipProperties(fromProperties, _skippedProperties, MapPropertyType.OnlyFrom), toProperties,
                 _customPropertiers.Where(x => x.MapType == MapPropertyType.OnlyFrom || x.MapType == MapPropertyType.Both).ToList()));
 
