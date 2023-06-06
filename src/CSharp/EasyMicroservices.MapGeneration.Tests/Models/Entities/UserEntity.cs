@@ -11,6 +11,7 @@ namespace EasyMicroservices.MapGeneration.Tests.Models.Entities
         public string UserName { get; set; }
         public int Age { get; set; }
         public int ChildrenCount { get; set; }
+        public ProfileEntity Profile { get; set; }
         public ICollection<PostEntity> Posts { get; set; }
     }
 }

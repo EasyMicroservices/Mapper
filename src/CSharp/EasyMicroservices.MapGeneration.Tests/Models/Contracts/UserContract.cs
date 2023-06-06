@@ -18,6 +18,7 @@ namespace EasyMicroservices.MapGeneration.Tests.Models.Contracts
         public int Children { get; set; }
         public string CustomName { get; set; }
 
+        public ProfileContract Profile { get; set; }
         public ICollection<PostContract> Posts { get; set; }
     }
 }
