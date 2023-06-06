@@ -26,6 +26,7 @@ namespace EasyMicroservices.MapGeneration.Tests.Engines
             CSharpBuilder cSharpBuilder = new CSharpBuilder();
             var compiled = await cSharpBuilder.Build(environmentSchemaBuild);
             var text = compiled.ToString();
+            Assert.NotEmpty(text);
         }
     }
 }
