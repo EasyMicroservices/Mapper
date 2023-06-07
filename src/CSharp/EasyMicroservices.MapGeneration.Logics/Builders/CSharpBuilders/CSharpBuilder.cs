@@ -12,6 +12,14 @@ namespace EasyMicroservices.MapGeneration.Builders.CSharpBuilders
         StringBuilder builder = new StringBuilder();
         public async Task<StringBuilder> Build(EnvironmentSchemaBuild environmentSchema)
         {
+            if (environmentSchema.NameSpaces != null)
+            {
+                foreach (var item in environmentSchema.NameSpaces)
+                {
+                    builder.AppendLine($"using {item};");
+                }
+            }
+            builder.AppendLine();
             builder.AppendLine("namespace CompileTimeMapper");
             builder.AppendLine("{");
             foreach (var item in environmentSchema.Classes)
@@ -25,13 +33,13 @@ namespace EasyMicroservices.MapGeneration.Builders.CSharpBuilders
         public async Task ClassBuild(ClassSchemaBuild classSchema)
         {
             builder.AppendTabSpace(1);
-            builder.AppendLine($"public class {classSchema.Name}");
+            builder.AppendLine($"public class {classSchema.Name} : IMapper");
             builder.AppendTabSpace(1);
             builder.AppendLine("{");
             builder.AppendTabSpace(2);
-            builder.AppendLine($"readonly IMapper _mapper;");
+            builder.AppendLine($"readonly IMapperProvider _mapper;");
             builder.AppendTabSpace(2);
-            builder.AppendLine($"public {classSchema.Name}(IMapper mapper)");
+            builder.AppendLine($"public {classSchema.Name}(IMapperProvider mapper)");
             builder.AppendTabSpace(2);
             builder.AppendLine("{");
             builder.AppendTabSpace(3);
@@ -43,14 +51,15 @@ namespace EasyMicroservices.MapGeneration.Builders.CSharpBuilders
             await ClassBuild(classSchema.FromType, classSchema.ToType, classSchema.FromMapProperties);
             builder.AppendLine();
             await ClassBuild(classSchema.ToType, classSchema.FromType, classSchema.ToMapProperties);
+            GenerateMapObject(classSchema.FromType, classSchema.ToType);
 
             builder.AppendTabSpace(1);
             builder.AppendLine("}");
         }
-        public async Task ClassBuild(Type formType, Type toType, List<PropertySchemaBuild> properties)
+        public async Task ClassBuild(Type fromType, Type toType, List<PropertySchemaBuild> properties)
         {
             builder.AppendTabSpace(2);
-            builder.Append($"public static global::{CSharpBuilderReflection.GetTypeFullName(formType)} Map(global::{CSharpBuilderReflection.GetTypeFullName(toType)} fromObject,");
+            builder.Append($"public global::{CSharpBuilderReflection.GetTypeFullName(fromType)} Map(global::{CSharpBuilderReflection.GetTypeFullName(toType)} fromObject,");
             builder.AppendLine($"string uniqueRecordId, string language, object[] parameters)");
             builder.AppendTabSpace(2);
             builder.AppendLine("{");
@@ -61,7 +70,7 @@ namespace EasyMicroservices.MapGeneration.Builders.CSharpBuilders
             builder.AppendLine("return default;");
 
             builder.AppendTabSpace(3);
-            builder.AppendLine($"var mapped = new global::{CSharpBuilderReflection.GetTypeFullName(formType)}()");
+            builder.AppendLine($"var mapped = new global::{CSharpBuilderReflection.GetTypeFullName(fromType)}()");
             builder.AppendTabSpace(3);
             builder.AppendLine("{");
 
@@ -76,7 +85,31 @@ namespace EasyMicroservices.MapGeneration.Builders.CSharpBuilders
             builder.AppendLine("return mapped;");
             builder.AppendTabSpace(2);
             builder.AppendLine("}");
+        }
 
+        public void GenerateMapObject(Type fromType, Type toType)
+        {
+            builder.AppendTabSpace(2);
+            builder.AppendLine("public object MapObject(object fromObject, string uniqueRecordId, string language, object[] parameters)");
+
+            builder.AppendTabSpace(2);
+            builder.AppendLine("{");
+
+
+            builder.AppendTabSpace(3);
+            builder.AppendLine("if (fromObject == default)");
+            builder.AppendTabSpace(4);
+            builder.AppendLine("return default;");
+
+            builder.AppendTabSpace(3);
+            builder.AppendLine($"if (fromObject.GetType() == typeof({CSharpBuilderReflection.GetTypeFullName(fromType)}))");
+            builder.AppendTabSpace(4);
+            builder.AppendLine($"return Map(({CSharpBuilderReflection.GetTypeFullName(fromType)})fromObject, uniqueRecordId, language, parameters);");
+            builder.AppendTabSpace(3);
+            builder.AppendLine($"return Map(({CSharpBuilderReflection.GetTypeFullName(toType)})fromObject, uniqueRecordId, language, parameters);");
+
+            builder.AppendTabSpace(2);
+            builder.AppendLine("}");
         }
 
         public async Task PropertyBuild(PropertySchemaBuild propertySchema)
@@ -115,19 +148,19 @@ namespace EasyMicroservices.MapGeneration.Builders.CSharpBuilders
             if (CSharpBuilderReflection.IsSimple(propertySchema.FromType.GetElementType()) || CSharpBuilderReflection.IsSimple(propertySchema.ToType.GetElementType()))
                 builder.Append($"fromObject.{propertySchema.ToName}");
             else
-                builder.Append($"_mapper.MapToList(fromObject.{propertySchema.ToName}).ToArray()");
+                builder.Append($"_mapper.MapToList<global::{CSharpBuilderReflection.GetTypeFullName(propertySchema.FromType.GetElementType())}[]>(fromObject.{propertySchema.ToName}).ToArray()");
             return Task.CompletedTask;
         }
 
         public Task CollectionPropertyBuild(PropertySchemaBuild propertySchema)
         {
-            builder.Append($"_mapper.MapToList(fromObject.{propertySchema.ToName})");
+            builder.Append($"_mapper.MapToList<global::{CSharpBuilderReflection.GetFirstGenericTypeFullName(propertySchema.FromType)}>(fromObject.{propertySchema.ToName})");
             return Task.CompletedTask;
         }
 
         public Task ObjectPropertyBuild(PropertySchemaBuild propertySchema)
         {
-            builder.Append($"_mapper.Map(fromObject.{propertySchema.ToName})");
+            builder.Append($"_mapper.Map<global::{CSharpBuilderReflection.GetTypeFullName(propertySchema.FromType)}>(fromObject.{propertySchema.ToName})");
             return Task.CompletedTask;
         }
     }

@@ -16,7 +16,7 @@ namespace EasyMicroservices.MapGeneration.Engines
         {
             EnvironmentSchemaBuild environmentSchemaBuild = new EnvironmentSchemaBuild()
             {
-
+                NameSpaces = _environment.NameSpaces
             };
             foreach (var group in _environment.Groups)
             {

@@ -13,7 +13,7 @@ namespace EasyMicroservices.MapGeneration.Engines
         public string AssemblyFileName { get; set; }
         public string DirectoryPath { get; set; }
         Assembly LoadedMainAssembly { get; set; }
-        public AssemblyLoader(string assemblyFileName)
+        public AssemblyLoader(string assemblyFileName) : base(isCollectible: true)
         {
             AssemblyFileName = assemblyFileName;
             DirectoryPath = Path.GetDirectoryName(AssemblyFileName);
@@ -60,14 +60,7 @@ namespace EasyMicroservices.MapGeneration.Engines
         [MethodImpl(MethodImplOptions.NoInlining)]
         public void Dispose()
         {
-            try
-            {
-                Unload();
-            }
-            catch
-            {
-
-            }
+            Unload();
         }
     }
 }

@@ -2,7 +2,7 @@
 using EasyMicroservices.Mapper.Providers;
 using System;
 using System.Collections.Generic;
-using System.Data;
+using System.Threading.Tasks;
 
 namespace EasyMicroservices.Mapper.CompileTimeMapper.Providers
 {
@@ -60,6 +60,30 @@ namespace EasyMicroservices.Mapper.CompileTimeMapper.Providers
                 if (mappers.TryGetValue(typeof(TTo), out IMapper mapper))
                 {
                     return (TTo)mapper.MapObject(fromObject, uniqueRecordId, language, parameters);
+                }
+            }
+            throw new Exception($"mapper not found for {fromObject.GetType()} and {typeof(TTo)}");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TTo"></typeparam>
+        /// <param name="fromObject"></param>
+        /// <param name="uniqueRecordId"></param>
+        /// <param name="language"></param>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public override async Task<TTo> MapAsync<TTo>(object fromObject, string uniqueRecordId = null, string language = null, params object[] parameters)
+        {
+            if (fromObject == null)
+                return default;
+            if (Mappers.TryGetValue(fromObject.GetType(), out Dictionary<Type, IMapper> mappers))
+            {
+                if (mappers.TryGetValue(typeof(TTo), out IMapper mapper))
+                {
+                    return (TTo)await mapper.MapObjectAsync(fromObject, uniqueRecordId, language, parameters);
                 }
             }
             throw new Exception($"mapper not found for {fromObject.GetType()} and {typeof(TTo)}");

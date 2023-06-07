@@ -4,6 +4,10 @@
       "Name": "TestMap",
       "GenerationPath": "ExecutionPath",
       "BuildPath": "ExecutionPath",
+      "NameSpaces": [
+        "EasyMicroservices.Mapper.Interfaces",
+        "EasyMicroservices.Mapper.CompileTimeMapper.Interfaces"
+      ],
       "Groups": [
         {
           "DisplayName": "User",
@@ -55,6 +59,22 @@
           },
           "MapTo": {
             "Name": "PostEntity",
+            "Namespace": "EasyMicroservices.MapGeneration.Tests.Models.Entities",
+            "AssebmlyFileName": "EasyMicroservices.MapGeneration.Tests.dll"
+          },
+          "SkippedProperties": [],
+          "CustomProperties": []
+        },
+        {
+          "DisplayName": "Profile",
+          "MapFrom": {
+            "Name": "ProfileContract",
+            "Namespace": "EasyMicroservices.MapGeneration.Tests.Models.Contracts",
+            "AssebmlyFileName": "EasyMicroservices.MapGeneration.Tests.dll"
+
+          },
+          "MapTo": {
+            "Name": "ProfileEntity",
             "Namespace": "EasyMicroservices.MapGeneration.Tests.Models.Entities",
             "AssebmlyFileName": "EasyMicroservices.MapGeneration.Tests.dll"
           },
