@@ -7,7 +7,7 @@ namespace EasyMicroservices.MapGeneration.Builders.Interfaces
     public interface IBuilder
     {
         public Task<StringBuilder> Build(EnvironmentSchemaBuild environmentSchema);
-        public Task ClassBuild(ClassSchemaBuild classSchema);
+        public Task ClassStructureBuild(ClassSchemaBuild classSchema);
         public Task PropertyBuild(PropertySchemaBuild propertySchema);
     }
 }

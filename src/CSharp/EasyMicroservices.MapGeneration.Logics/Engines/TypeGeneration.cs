@@ -12,14 +12,12 @@ namespace EasyMicroservices.MapGeneration.Engines
     public class TypeGeneration
     {
         Type _fromType, _toType;
-        List<PropertyMapInfo> _skippedProperties;
-        List<CustomPropertyMapInfo> _customPropertiers;
-        public TypeGeneration(Type fromType, Type toType, List<PropertyMapInfo> skippedProperties, List<CustomPropertyMapInfo> customPropertiers)
+        GroupMapInfo _groupMap;
+        public TypeGeneration(Type fromType, Type toType, GroupMapInfo groupMap)
         {
             _fromType = fromType;
             _toType = toType;
-            _customPropertiers = customPropertiers;
-            _skippedProperties = skippedProperties;
+            _groupMap = groupMap;
         }
 
         public async Task<ClassSchemaBuild> Build()
@@ -30,13 +28,17 @@ namespace EasyMicroservices.MapGeneration.Engines
             {
                 Name = $"{_fromType.Name}_{_toType.Name}_Mapper",
                 FromType = _fromType,
-                ToType = _toType
+                ToType = _toType,
+                FromDirectCodeSyncMap = _groupMap.FromDirectCodeSyncMap,
+                ToDirectCodeSyncMap = _groupMap.ToDirectCodeSyncMap,
+                FromDirectCodeAsyncMap = _groupMap.FromDirectCodeAsyncMap,
+                ToDirectCodeAsyncMap = _groupMap.ToDirectCodeAsyncMap
             };
-            result.FromMapProperties.AddRange(await Build(SkipProperties(fromProperties, _skippedProperties, MapPropertyType.OnlyFrom), toProperties,
-                _customPropertiers.Where(x => x.MapType == MapPropertyType.OnlyFrom || x.MapType == MapPropertyType.Both).ToList()));
+            result.FromMapProperties.AddRange(await Build(SkipProperties(fromProperties, _groupMap.SkippedProperties, MapPropertyType.OnlyFrom), toProperties,
+                _groupMap.CustomProperties.Where(x => x.MapType == MapPropertyType.OnlyFrom || x.MapType == MapPropertyType.Both).ToList()));
 
-            result.ToMapProperties.AddRange(await Build(SkipProperties(toProperties, _skippedProperties, MapPropertyType.OnlyTo), fromProperties,
-                 _customPropertiers.Where(x => x.MapType == MapPropertyType.OnlyTo || x.MapType == MapPropertyType.Both).ToList()));
+            result.ToMapProperties.AddRange(await Build(SkipProperties(toProperties, _groupMap.SkippedProperties, MapPropertyType.OnlyTo), fromProperties,
+                 _groupMap.CustomProperties.Where(x => x.MapType == MapPropertyType.OnlyTo || x.MapType == MapPropertyType.Both).ToList()));
 
             return result;
         }
