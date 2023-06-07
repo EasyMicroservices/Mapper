@@ -1,6 +1,7 @@
 ﻿using EasyMicroservices.Mapper.Interfaces;
 using EasyMicroservices.Mapper.Tests.Models;
 using System;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace EasyMicroservices.Mapper.Tests.Providers
@@ -30,6 +31,41 @@ namespace EasyMicroservices.Mapper.Tests.Providers
             };
 
             var mappedResult = _mapperProvider.Map<UserContract>(userEntity);
+
+            AssertEqual(userEntity, mappedResult);
+
+            var userContract = new UserContract()
+            {
+                UserName = userName,
+                Email = email,
+                Password = password,
+                Age = Age,
+                BirthDate = BirthDate,
+                Id = id,
+                Name = name,
+            };
+
+            var mappedResult2 = _mapperProvider.Map<UserEntity>(userEntity);
+            AssertEqual(mappedResult2, userContract);
+        }
+
+        [Theory]
+        [InlineData(1, "Ali", "ali@ali.com", "1234", "AliYousefi", 33, "2022-05-23")]
+        [InlineData(2, "mahdi", "mahdi@mahdi.com", "4321", "MahdiDelzende", 29, "2022-05-23 15:55")]
+        public async Task FlatMapAsync(long id, string name, string email, string password, string userName, int Age, DateTime BirthDate)
+        {
+            var userEntity = new UserEntity()
+            {
+                UserName = userName,
+                Email = email,
+                Password = password,
+                Age = Age,
+                BirthDate = BirthDate,
+                Id = id,
+                Name = name,
+            };
+
+            var mappedResult = await _mapperProvider.MapAsync<UserContract>(userEntity);
 
             AssertEqual(userEntity, mappedResult);
 
