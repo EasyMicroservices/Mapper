@@ -66,6 +66,7 @@ namespace EasyMicroservices.MapGeneration.Builders.CSharpBuilders
             {
                 if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>))
                     return SimpleTypes.Contains(type.GetGenericArguments()[0]);
+                return false;
             }
             return true;
         }

@@ -27,7 +27,7 @@ namespace EasyMicroservices.MapGeneration.Engines
                 throw new System.Exception($"Type {_groupMap.MapFrom.Namespace}.{_groupMap.MapFrom.Name} not found!");
             else if (mapToType == null)
                 throw new System.Exception($"Type {_groupMap.MapTo.Namespace}.{_groupMap.MapTo.Name} not found!");
-            var classMapResult = await new TypeGeneration(mapFromType, mapToType, _groupMap.SkippedProperties, _groupMap.CustomProperties).Build();
+            var classMapResult = await new TypeGeneration(mapFromType, mapToType, _groupMap).Build();
 
             return classMapResult;
         }

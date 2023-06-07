@@ -1,5 +1,6 @@
 ﻿using EasyMicroservices.Mapper.Interfaces;
 using EasyMicroservices.Mapper.CompileTimeMapper.Interfaces;
+using System.Threading.Tasks;
 
 namespace CompileTimeMapper
 {
@@ -11,7 +12,7 @@ namespace CompileTimeMapper
             _mapper = mapper;
         }
 
-        public global::EasyMicroservices.MapGeneration.Tests.Models.Contracts.UserContract Map(global::EasyMicroservices.MapGeneration.Tests.Models.Entities.UserEntity fromObject,string uniqueRecordId, string language, object[] parameters)
+        public global::EasyMicroservices.MapGeneration.Tests.Models.Contracts.UserContract Map(global::EasyMicroservices.MapGeneration.Tests.Models.Entities.UserEntity fromObject, string uniqueRecordId, string language, object[] parameters)
         {
             if (fromObject == default)
                 return default;
@@ -30,7 +31,7 @@ namespace CompileTimeMapper
             return mapped;
         }
 
-        public global::EasyMicroservices.MapGeneration.Tests.Models.Entities.UserEntity Map(global::EasyMicroservices.MapGeneration.Tests.Models.Contracts.UserContract fromObject,string uniqueRecordId, string language, object[] parameters)
+        public global::EasyMicroservices.MapGeneration.Tests.Models.Entities.UserEntity Map(global::EasyMicroservices.MapGeneration.Tests.Models.Contracts.UserContract fromObject, string uniqueRecordId, string language, object[] parameters)
         {
             if (fromObject == default)
                 return default;
@@ -47,6 +48,22 @@ namespace CompileTimeMapper
             };
             return mapped;
         }
+
+        public async Task<global::EasyMicroservices.MapGeneration.Tests.Models.Contracts.UserContract> MapAsync(global::EasyMicroservices.MapGeneration.Tests.Models.Entities.UserEntity fromObject, string uniqueRecordId, string language, object[] parameters)
+        {
+            if (fromObject == default)
+                return default;
+            var mapped = Map(fromObject, uniqueRecordId, language, parameters);
+            return mapped;
+        }
+
+        public async Task<global::EasyMicroservices.MapGeneration.Tests.Models.Entities.UserEntity> MapAsync(global::EasyMicroservices.MapGeneration.Tests.Models.Contracts.UserContract fromObject, string uniqueRecordId, string language, object[] parameters)
+        {
+            if (fromObject == default)
+                return default;
+            var mapped = Map(fromObject, uniqueRecordId, language, parameters);
+            return mapped;
+        }
         public object MapObject(object fromObject, string uniqueRecordId, string language, object[] parameters)
         {
             if (fromObject == default)
@@ -54,6 +71,14 @@ namespace CompileTimeMapper
             if (fromObject.GetType() == typeof(EasyMicroservices.MapGeneration.Tests.Models.Contracts.UserContract))
                 return Map((EasyMicroservices.MapGeneration.Tests.Models.Contracts.UserContract)fromObject, uniqueRecordId, language, parameters);
             return Map((EasyMicroservices.MapGeneration.Tests.Models.Entities.UserEntity)fromObject, uniqueRecordId, language, parameters);
+        }
+        public async Task<object> MapObjectAsync(object fromObject, string uniqueRecordId, string language, object[] parameters)
+        {
+            if (fromObject == default)
+                return default;
+            if (fromObject.GetType() == typeof(EasyMicroservices.MapGeneration.Tests.Models.Contracts.UserContract))
+                return await MapAsync((EasyMicroservices.MapGeneration.Tests.Models.Contracts.UserContract)fromObject, uniqueRecordId, language, parameters);
+            return await MapAsync((EasyMicroservices.MapGeneration.Tests.Models.Entities.UserEntity)fromObject, uniqueRecordId, language, parameters);
         }
     }
     public class PostContract_PostEntity_Mapper : IMapper
@@ -64,7 +89,7 @@ namespace CompileTimeMapper
             _mapper = mapper;
         }
 
-        public global::EasyMicroservices.MapGeneration.Tests.Models.Contracts.PostContract Map(global::EasyMicroservices.MapGeneration.Tests.Models.Entities.PostEntity fromObject,string uniqueRecordId, string language, object[] parameters)
+        public global::EasyMicroservices.MapGeneration.Tests.Models.Contracts.PostContract Map(global::EasyMicroservices.MapGeneration.Tests.Models.Entities.PostEntity fromObject, string uniqueRecordId, string language, object[] parameters)
         {
             if (fromObject == default)
                 return default;
@@ -76,7 +101,7 @@ namespace CompileTimeMapper
             return mapped;
         }
 
-        public global::EasyMicroservices.MapGeneration.Tests.Models.Entities.PostEntity Map(global::EasyMicroservices.MapGeneration.Tests.Models.Contracts.PostContract fromObject,string uniqueRecordId, string language, object[] parameters)
+        public global::EasyMicroservices.MapGeneration.Tests.Models.Entities.PostEntity Map(global::EasyMicroservices.MapGeneration.Tests.Models.Contracts.PostContract fromObject, string uniqueRecordId, string language, object[] parameters)
         {
             if (fromObject == default)
                 return default;
@@ -87,6 +112,22 @@ namespace CompileTimeMapper
             };
             return mapped;
         }
+
+        public async Task<global::EasyMicroservices.MapGeneration.Tests.Models.Contracts.PostContract> MapAsync(global::EasyMicroservices.MapGeneration.Tests.Models.Entities.PostEntity fromObject, string uniqueRecordId, string language, object[] parameters)
+        {
+            if (fromObject == default)
+                return default;
+            var mapped = Map(fromObject, uniqueRecordId, language, parameters);
+            return mapped;
+        }
+
+        public async Task<global::EasyMicroservices.MapGeneration.Tests.Models.Entities.PostEntity> MapAsync(global::EasyMicroservices.MapGeneration.Tests.Models.Contracts.PostContract fromObject, string uniqueRecordId, string language, object[] parameters)
+        {
+            if (fromObject == default)
+                return default;
+            var mapped = Map(fromObject, uniqueRecordId, language, parameters);
+            return mapped;
+        }
         public object MapObject(object fromObject, string uniqueRecordId, string language, object[] parameters)
         {
             if (fromObject == default)
@@ -94,6 +135,14 @@ namespace CompileTimeMapper
             if (fromObject.GetType() == typeof(EasyMicroservices.MapGeneration.Tests.Models.Contracts.PostContract))
                 return Map((EasyMicroservices.MapGeneration.Tests.Models.Contracts.PostContract)fromObject, uniqueRecordId, language, parameters);
             return Map((EasyMicroservices.MapGeneration.Tests.Models.Entities.PostEntity)fromObject, uniqueRecordId, language, parameters);
+        }
+        public async Task<object> MapObjectAsync(object fromObject, string uniqueRecordId, string language, object[] parameters)
+        {
+            if (fromObject == default)
+                return default;
+            if (fromObject.GetType() == typeof(EasyMicroservices.MapGeneration.Tests.Models.Contracts.PostContract))
+                return await MapAsync((EasyMicroservices.MapGeneration.Tests.Models.Contracts.PostContract)fromObject, uniqueRecordId, language, parameters);
+            return await MapAsync((EasyMicroservices.MapGeneration.Tests.Models.Entities.PostEntity)fromObject, uniqueRecordId, language, parameters);
         }
     }
     public class ProfileContract_ProfileEntity_Mapper : IMapper
@@ -104,7 +153,7 @@ namespace CompileTimeMapper
             _mapper = mapper;
         }
 
-        public global::EasyMicroservices.MapGeneration.Tests.Models.Contracts.ProfileContract Map(global::EasyMicroservices.MapGeneration.Tests.Models.Entities.ProfileEntity fromObject,string uniqueRecordId, string language, object[] parameters)
+        public global::EasyMicroservices.MapGeneration.Tests.Models.Contracts.ProfileContract Map(global::EasyMicroservices.MapGeneration.Tests.Models.Entities.ProfileEntity fromObject, string uniqueRecordId, string language, object[] parameters)
         {
             if (fromObject == default)
                 return default;
@@ -115,7 +164,7 @@ namespace CompileTimeMapper
             return mapped;
         }
 
-        public global::EasyMicroservices.MapGeneration.Tests.Models.Entities.ProfileEntity Map(global::EasyMicroservices.MapGeneration.Tests.Models.Contracts.ProfileContract fromObject,string uniqueRecordId, string language, object[] parameters)
+        public global::EasyMicroservices.MapGeneration.Tests.Models.Entities.ProfileEntity Map(global::EasyMicroservices.MapGeneration.Tests.Models.Contracts.ProfileContract fromObject, string uniqueRecordId, string language, object[] parameters)
         {
             if (fromObject == default)
                 return default;
@@ -125,6 +174,22 @@ namespace CompileTimeMapper
             };
             return mapped;
         }
+
+        public async Task<global::EasyMicroservices.MapGeneration.Tests.Models.Contracts.ProfileContract> MapAsync(global::EasyMicroservices.MapGeneration.Tests.Models.Entities.ProfileEntity fromObject, string uniqueRecordId, string language, object[] parameters)
+        {
+            if (fromObject == default)
+                return default;
+            var mapped = Map(fromObject, uniqueRecordId, language, parameters);
+            return mapped;
+        }
+
+        public async Task<global::EasyMicroservices.MapGeneration.Tests.Models.Entities.ProfileEntity> MapAsync(global::EasyMicroservices.MapGeneration.Tests.Models.Contracts.ProfileContract fromObject, string uniqueRecordId, string language, object[] parameters)
+        {
+            if (fromObject == default)
+                return default;
+            var mapped = Map(fromObject, uniqueRecordId, language, parameters);
+            return mapped;
+        }
         public object MapObject(object fromObject, string uniqueRecordId, string language, object[] parameters)
         {
             if (fromObject == default)
@@ -132,6 +197,14 @@ namespace CompileTimeMapper
             if (fromObject.GetType() == typeof(EasyMicroservices.MapGeneration.Tests.Models.Contracts.ProfileContract))
                 return Map((EasyMicroservices.MapGeneration.Tests.Models.Contracts.ProfileContract)fromObject, uniqueRecordId, language, parameters);
             return Map((EasyMicroservices.MapGeneration.Tests.Models.Entities.ProfileEntity)fromObject, uniqueRecordId, language, parameters);
+        }
+        public async Task<object> MapObjectAsync(object fromObject, string uniqueRecordId, string language, object[] parameters)
+        {
+            if (fromObject == default)
+                return default;
+            if (fromObject.GetType() == typeof(EasyMicroservices.MapGeneration.Tests.Models.Contracts.ProfileContract))
+                return await MapAsync((EasyMicroservices.MapGeneration.Tests.Models.Contracts.ProfileContract)fromObject, uniqueRecordId, language, parameters);
+            return await MapAsync((EasyMicroservices.MapGeneration.Tests.Models.Entities.ProfileEntity)fromObject, uniqueRecordId, language, parameters);
         }
     }
 }
