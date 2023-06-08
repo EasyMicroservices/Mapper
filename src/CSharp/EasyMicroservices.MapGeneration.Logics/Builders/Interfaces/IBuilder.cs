@@ -8,6 +8,6 @@ namespace EasyMicroservices.MapGeneration.Builders.Interfaces
     {
         public Task<StringBuilder> Build(EnvironmentSchemaBuild environmentSchema);
         public Task ClassStructureBuild(ClassSchemaBuild classSchema);
-        public Task PropertyBuild(PropertySchemaBuild propertySchema);
+        public Task PropertyBuild(PropertySchemaBuild propertySchema, bool isAsync = false);
     }
 }

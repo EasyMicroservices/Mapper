@@ -135,9 +135,12 @@ namespace EasyMicroservices.Mapper.Providers
         /// <param name="parameters"></param>
         /// <returns></returns>
         /// <exception cref="System.NotImplementedException"></exception>
-        public Task<List<TTo>> MapSingleToListAsync<TTo>(object fromObject, string uniqueRecordId = null, string language = null, params object[] parameters)
+        public async Task<List<TTo>> MapSingleToListAsync<TTo>(object fromObject, string uniqueRecordId = null, string language = null, params object[] parameters)
         {
-            return Task.FromResult(MapSingleToList<TTo>(fromObject, uniqueRecordId, language, parameters));
+            return new List<TTo>()
+            {
+                await MapAsync<TTo>(fromObject)
+            };
         }
 
         /// <summary>
@@ -150,9 +153,15 @@ namespace EasyMicroservices.Mapper.Providers
         /// <param name="parameters"></param>
         /// <returns></returns>
         /// <exception cref="System.NotImplementedException"></exception>
-        public Task<TTo> MapToFirstAsync<TTo>(IEnumerable fromObject, string uniqueRecordId = null, string language = null, params object[] parameters)
+        public async Task<TTo> MapToFirstAsync<TTo>(IEnumerable fromObject, string uniqueRecordId = null, string language = null, params object[] parameters)
         {
-            return Task.FromResult(MapToFirst<TTo>(fromObject, uniqueRecordId, language, parameters));
+            if (fromObject == null)
+                return default;
+            var enumerator = fromObject.GetEnumerator();
+            // check first
+            if (!enumerator.MoveNext())
+                return default;
+            return await MapAsync<TTo>(enumerator.Current);
         }
 
         /// <summary>
@@ -165,9 +174,16 @@ namespace EasyMicroservices.Mapper.Providers
         /// <param name="parameters"></param>
         /// <returns></returns>
         /// <exception cref="System.NotImplementedException"></exception>
-        public Task<List<TTo>> MapToListAsync<TTo>(IEnumerable fromObject, string uniqueRecordId = null, string language = null, params object[] parameters)
+        public async Task<List<TTo>> MapToListAsync<TTo>(IEnumerable fromObject, string uniqueRecordId = null, string language = null, params object[] parameters)
         {
-            return Task.FromResult(MapToList<TTo>(fromObject, uniqueRecordId, language, parameters));
+            if (fromObject == null)
+                return default;
+            List<TTo> result = new List<TTo>();
+            foreach (var item in fromObject)
+            {
+                result.Add(await MapAsync<TTo>(item));
+            }
+            return result;
         }
     }
 }
