@@ -92,12 +92,33 @@ namespace EasyMicroservices.MapGeneration.Engines
 
         CustomPropertyInfo FindSimilarProperty(PropertyInfo property, List<PropertyInfo> toProperties)
         {
-            return toProperties.OrderBy(x => x.PropertyType == property.PropertyType).FirstOrDefault(x => x.Name == property.Name);
+            return toProperties.Where(x => x.Name == property.Name).OrderBy(x => IsPropertyTypesEqual(x.PropertyType, property.PropertyType)).FirstOrDefault();
         }
 
         CustomPropertyInfo FindSimilarProperty(string name, Type propertyType, List<PropertyInfo> toProperties)
         {
-            return toProperties.OrderBy(x => x.PropertyType == propertyType).FirstOrDefault(x => x.Name == name);
+            return toProperties.Where(x => x.Name == name).OrderBy(x => IsPropertyTypesEqual(x.PropertyType, propertyType)).FirstOrDefault();
+        }
+
+        bool IsPropertyTypesEqual(Type fromType, Type toType)
+        {
+            if (fromType == toType)
+                return true;
+            else if (fromType.IsGenericType && toType.IsGenericType)
+            {
+                try
+                {
+                    var fromGeneric = fromType.GetGenericTypeDefinition().MakeGenericType(typeof(int));
+                    var toGeneric = toType.GetGenericTypeDefinition().MakeGenericType(typeof(int));
+
+                    return fromGeneric.IsAssignableFrom(toGeneric) || toGeneric.IsAssignableFrom(fromGeneric);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
+                }
+            }
+            return false;
         }
 
         public CustomPropertyInfo FindFromProperty(List<PropertyInfo> toProperties, List<CustomPropertyMapInfo> customPropertiers, string name, Type propertyType)
