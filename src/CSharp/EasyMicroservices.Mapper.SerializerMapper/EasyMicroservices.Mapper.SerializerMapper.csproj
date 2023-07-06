@@ -1,19 +1,23 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;netstandard2.1;net6.0;net45</TargetFrameworks>
     <Platforms>AnyCPU;x64;x86</Platforms>
     <Authors>EasyMicroservices</Authors>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>0.0.0.5</Version>
+    <Version>0.0.0.1</Version>
     <Description>Map objects.</Description>
     <Copyright>EasyMicroservices@gmail.com</Copyright>
     <PackageTags>map,mapper,clone,coppy</PackageTags>
     <PackageProjectUrl>https://github.com/EasyMicroservices/Mapper</PackageProjectUrl>
     <LangVersion>latest</LangVersion>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <DocumentationFile>.\bin\$(Configuration)\$(TargetFramework)\EasyMicroservices.Mapper.CompileTimeMapper.xml</DocumentationFile>
+    <DocumentationFile>.\bin\$(Configuration)\$(TargetFramework)\EasyMicroservices.Mapper.SerializerMapper.xml</DocumentationFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="EasyMicroservices.Serialization" Version="0.0.0.1" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\EasyMicroservices.Mapper\EasyMicroservices.Mapper.csproj" />

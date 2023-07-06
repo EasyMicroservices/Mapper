@@ -7,6 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="EasyMicroservices.Serialization.BinaryGo" Version="0.0.0.1" />
+    <PackageReference Include="EasyMicroservices.Serialization.Newtonsoft.Json" Version="0.0.0.1" />
+    <PackageReference Include="EasyMicroservices.Serialization.System.Text.Json" Version="0.0.0.1" />
     <PackageReference Include="EasyMicroservices.Tests" Version="0.0.0.3" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -16,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\EasyMicroservices.Mapper.AutoMapper\EasyMicroservices.Mapper.AutoMapper.csproj" />
+    <ProjectReference Include="..\EasyMicroservices.Mapper.SerializerMapper\EasyMicroservices.Mapper.SerializerMapper.csproj" />
   </ItemGroup>
 
 </Project>
