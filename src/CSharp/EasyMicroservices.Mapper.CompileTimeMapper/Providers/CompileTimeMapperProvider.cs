@@ -1,4 +1,5 @@
 ﻿using EasyMicroservices.Mapper.CompileTimeMapper.Interfaces;
+using EasyMicroservices.Mapper.Interfaces;
 using EasyMicroservices.Mapper.Providers;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,24 @@ namespace EasyMicroservices.Mapper.CompileTimeMapper.Providers
     /// </summary>
     public class CompileTimeMapperProvider : BaseMapperProvider
     {
+        private readonly IMapperProvider _backupMapperProvider;
         Dictionary<Type, Dictionary<Type, IMapper>> Mappers { get; set; } = new Dictionary<Type, Dictionary<Type, IMapper>>();
+        /// <summary>
+        /// 
+        /// </summary>
+        public CompileTimeMapperProvider()
+        {
+
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="backupMapperProvider">if there is no mapper found, it will use this mapper provider</param>
+        public CompileTimeMapperProvider(IMapperProvider backupMapperProvider)
+        {
+            _backupMapperProvider = backupMapperProvider;
+        }
 
         /// <summary>
         /// 
@@ -62,6 +80,8 @@ namespace EasyMicroservices.Mapper.CompileTimeMapper.Providers
                     return (TTo)mapper.MapObject(fromObject, uniqueRecordId, language, parameters);
                 }
             }
+            if (_backupMapperProvider != null)
+                return _backupMapperProvider.Map<TTo>(fromObject, uniqueRecordId, language, parameters);
             throw new Exception($"mapper not found for {fromObject.GetType()} and {typeof(TTo)}");
         }
 
@@ -86,6 +106,8 @@ namespace EasyMicroservices.Mapper.CompileTimeMapper.Providers
                     return (TTo)await mapper.MapObjectAsync(fromObject, uniqueRecordId, language, parameters);
                 }
             }
+            if (_backupMapperProvider != null)
+                return await _backupMapperProvider.MapAsync<TTo>(fromObject, uniqueRecordId, language, parameters);
             throw new Exception($"mapper not found for {fromObject.GetType()} and {typeof(TTo)}");
         }
     }
