@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFrameworks>netcoreapp3.1;net6.0;net5.0</TargetFrameworks>
@@ -8,8 +8,8 @@
 
   <ItemGroup>
     <PackageReference Include="EasyMicroservices.Serialization.BinaryGo" Version="0.0.0.1" />
-    <PackageReference Include="EasyMicroservices.Serialization.Newtonsoft.Json" Version="0.0.0.1" />
-    <PackageReference Include="EasyMicroservices.Serialization.System.Text.Json" Version="0.0.0.1" />
+    <PackageReference Include="EasyMicroservices.Serialization.Newtonsoft.Json" Version="0.0.0.3" />
+    <PackageReference Include="EasyMicroservices.Serialization.System.Text.Json" Version="0.0.0.4" />
     <PackageReference Include="EasyMicroservices.Tests" Version="0.0.0.3" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
