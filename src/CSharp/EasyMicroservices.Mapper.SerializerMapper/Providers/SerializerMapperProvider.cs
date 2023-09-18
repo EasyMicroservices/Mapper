@@ -9,13 +9,13 @@ namespace EasyMicroservices.Mapper.SerializerMapper.Providers
     /// </summary>
     public class SerializerMapperProvider : BaseMapperProvider
     {
-        private readonly ITextSerialization _textSerialization;
-        private readonly IBinarySerialization _binarySerialization;
+        private readonly ITextSerializationProvider _textSerialization;
+        private readonly IBinarySerializationProvider _binarySerialization;
         /// <summary>
         /// 
         /// </summary>
         /// <param name="textSerialization"></param>
-        public SerializerMapperProvider(ITextSerialization textSerialization)
+        public SerializerMapperProvider(ITextSerializationProvider textSerialization)
         {
             if (textSerialization == null)
                 throw new ArgumentNullException(nameof(textSerialization));
@@ -26,7 +26,7 @@ namespace EasyMicroservices.Mapper.SerializerMapper.Providers
         /// 
         /// </summary>
         /// <param name="binarySerialization"></param>
-        public SerializerMapperProvider(IBinarySerialization binarySerialization)
+        public SerializerMapperProvider(IBinarySerializationProvider binarySerialization)
         {
             if (binarySerialization == null)
                 throw new ArgumentNullException(nameof(binarySerialization));
