@@ -15,7 +15,7 @@ namespace EasyMicroservices.MapGeneration.Models
 
         public string GetGenerationPath()
         {
-            return GenerationPath.Replace(PathConstants.ExecutionPath,AppDomain.CurrentDomain.BaseDirectory);
+            return GenerationPath.Replace(PathConstants.ExecutionPath, AppDomain.CurrentDomain.BaseDirectory);
         }
 
         public string GetBuildPath()

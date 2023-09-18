@@ -15,16 +15,10 @@ namespace EasyMicroservices.MapGeneration.ConsoleApp
         {
             try
             {
-                Console.WriteLine("Please set Map.json (enter to generate last file openned)");
-                var jsonFilePath = Console.ReadLine();
                 var pathProvider = new SystemPathProvider();
                 string lastFileOppened = pathProvider.Combine(AppDomain.CurrentDomain.BaseDirectory, "LastFile.txt");
-                if (string.IsNullOrEmpty(jsonFilePath))
-                {
-                    if (File.Exists(lastFileOppened))
-                        jsonFilePath = await File.ReadAllTextAsync(lastFileOppened, Encoding.UTF8);
-                }
-
+                var jsonFilePath = await LoadFilePath(args, lastFileOppened);
+                Console.WriteLine($"File opend: {jsonFilePath}");
                 var appPath = AppDomain.CurrentDomain.BaseDirectory;
                 EnvironmentLoader loader = new EnvironmentLoader(new NewtonsoftJsonProvider(), new DiskFileProvider(new DiskDirectoryProvider(appPath, pathProvider)));
                 await loader.Load(jsonFilePath);
@@ -32,7 +26,7 @@ namespace EasyMicroservices.MapGeneration.ConsoleApp
                 var environmentSchemaBuild = await generation.Build();
                 CSharpBuilder cSharpBuilder = new CSharpBuilder();
                 var compiled = await cSharpBuilder.Build(environmentSchemaBuild);
-                string savedToPath = pathProvider.Combine(loader.AppData.Environments.First().GenerationPath, "CompileTimeClassesMappers.cs");
+                string savedToPath = pathProvider.Combine(loader.AppData.Environments.First().GetGenerationPath(), "CompileTimeClassesMappers.cs");
                 await File.WriteAllTextAsync(savedToPath, compiled.ToString(), Encoding.UTF8);
                 Console.WriteLine($"Generated to {savedToPath}");
                 await File.WriteAllTextAsync(lastFileOppened, jsonFilePath, Encoding.UTF8);
@@ -43,6 +37,26 @@ namespace EasyMicroservices.MapGeneration.ConsoleApp
             }
             Console.ReadLine();
             await Main(args);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="args"></param>
+        /// <param name="pathProvider"></param>
+        /// <returns></returns>
+        static async Task<string> LoadFilePath(string[] args, string lastFileOppened)
+        {
+            if (args != null && args.Any() && File.Exists(args[0]))
+                return args[0];
+            Console.WriteLine("Please set Map.json (enter to generate last file openned)");
+            var jsonFilePath = Console.ReadLine();
+            if (string.IsNullOrEmpty(jsonFilePath))
+            {
+                if (File.Exists(lastFileOppened))
+                    jsonFilePath = await File.ReadAllTextAsync(lastFileOppened, Encoding.UTF8);
+            }
+            return jsonFilePath;
         }
     }
 }
