@@ -16,11 +16,11 @@ namespace EasyMicroservices.Mapper.Providers
         /// <typeparam name="TFrom"></typeparam>
         /// <typeparam name="TTo"></typeparam>
         /// <param name="fromObject"></param>
-        /// <param name="uniqueRecordId"></param>
+        /// <param name="uniqueIdentity"></param>
         /// <param name="language"></param>
         /// <param name="parameters"></param>
         /// <returns></returns>
-        public TTo Map<TFrom, TTo>(TFrom fromObject, string uniqueRecordId = default, string language = default, params object[] parameters)
+        public TTo Map<TFrom, TTo>(TFrom fromObject, string uniqueIdentity = default, string language = default, params object[] parameters)
         {
             return Map<TTo>(fromObject);
         }
@@ -30,11 +30,11 @@ namespace EasyMicroservices.Mapper.Providers
         /// </summary>
         /// <typeparam name="TTo"></typeparam>
         /// <param name="fromObject"></param>
-        /// <param name="uniqueRecordId"></param>
+        /// <param name="uniqueIdentity"></param>
         /// <param name="language"></param>
         /// <param name="parameters"></param>
         /// <returns></returns>
-        public abstract TTo Map<TTo>(object fromObject, string uniqueRecordId = default, string language = default, params object[] parameters);
+        public abstract TTo Map<TTo>(object fromObject, string uniqueIdentity = default, string language = default, params object[] parameters);
 
 
         /// <summary>
@@ -42,11 +42,11 @@ namespace EasyMicroservices.Mapper.Providers
         /// </summary>
         /// <typeparam name="TTo"></typeparam>
         /// <param name="fromObject"></param>
-        /// <param name="uniqueRecordId"></param>
+        /// <param name="uniqueIdentity"></param>
         /// <param name="language"></param>
         /// <param name="parameters"></param>
         /// <returns></returns>
-        public List<TTo> MapSingleToList<TTo>(object fromObject, string uniqueRecordId = default, string language = default, params object[] parameters)
+        public List<TTo> MapSingleToList<TTo>(object fromObject, string uniqueIdentity = default, string language = default, params object[] parameters)
         {
             return new List<TTo>()
             {
@@ -59,11 +59,11 @@ namespace EasyMicroservices.Mapper.Providers
         /// </summary>
         /// <typeparam name="TTo"></typeparam>
         /// <param name="fromObject"></param>
-        /// <param name="uniqueRecordId"></param>
+        /// <param name="uniqueIdentity"></param>
         /// <param name="language"></param>
         /// <param name="parameters"></param>
         /// <returns></returns>
-        public TTo MapToFirst<TTo>(IEnumerable fromObject, string uniqueRecordId = default, string language = default, params object[] parameters)
+        public TTo MapToFirst<TTo>(IEnumerable fromObject, string uniqueIdentity = default, string language = default, params object[] parameters)
         {
             if (fromObject == null)
                 return default;
@@ -79,11 +79,11 @@ namespace EasyMicroservices.Mapper.Providers
         /// </summary>
         /// <typeparam name="TTo"></typeparam>
         /// <param name="fromObject"></param>
-        /// <param name="uniqueRecordId"></param>
+        /// <param name="uniqueIdentity"></param>
         /// <param name="language"></param>
         /// <param name="parameters"></param>
         /// <returns></returns>
-        public List<TTo> MapToList<TTo>(IEnumerable fromObject, string uniqueRecordId = default, string language = default, params object[] parameters)
+        public List<TTo> MapToList<TTo>(IEnumerable fromObject, string uniqueIdentity = default, string language = default, params object[] parameters)
         {
             if (fromObject == null)
                 return default;
@@ -101,13 +101,13 @@ namespace EasyMicroservices.Mapper.Providers
         /// <typeparam name="TFrom"></typeparam>
         /// <typeparam name="TTo"></typeparam>
         /// <param name="fromObject"></param>
-        /// <param name="uniqueRecordId"></param>
+        /// <param name="uniqueIdentity"></param>
         /// <param name="language"></param>
         /// <param name="parameters"></param>
         /// <returns></returns>
-        public Task<TTo> MapAsync<TFrom, TTo>(TFrom fromObject = default, string uniqueRecordId = null, string language = null, params object[] parameters)
+        public Task<TTo> MapAsync<TFrom, TTo>(TFrom fromObject = default, string uniqueIdentity = null, string language = null, params object[] parameters)
         {
-            return Task.FromResult(Map<TFrom, TTo>(fromObject, uniqueRecordId, language, parameters));
+            return Task.FromResult(Map<TFrom, TTo>(fromObject, uniqueIdentity, language, parameters));
         }
 
         /// <summary>
@@ -115,14 +115,14 @@ namespace EasyMicroservices.Mapper.Providers
         /// </summary>
         /// <typeparam name="TTo"></typeparam>
         /// <param name="fromObject"></param>
-        /// <param name="uniqueRecordId"></param>
+        /// <param name="uniqueIdentity"></param>
         /// <param name="language"></param>
         /// <param name="parameters"></param>
         /// <returns></returns>
         /// <exception cref="System.NotImplementedException"></exception>
-        public virtual Task<TTo> MapAsync<TTo>(object fromObject, string uniqueRecordId = null, string language = null, params object[] parameters)
+        public virtual Task<TTo> MapAsync<TTo>(object fromObject, string uniqueIdentity = null, string language = null, params object[] parameters)
         {
-            return Task.FromResult(Map<TTo>(fromObject, uniqueRecordId, language, parameters));
+            return Task.FromResult(Map<TTo>(fromObject, uniqueIdentity, language, parameters));
         }
 
         /// <summary>
@@ -130,12 +130,12 @@ namespace EasyMicroservices.Mapper.Providers
         /// </summary>
         /// <typeparam name="TTo"></typeparam>
         /// <param name="fromObject"></param>
-        /// <param name="uniqueRecordId"></param>
+        /// <param name="uniqueIdentity"></param>
         /// <param name="language"></param>
         /// <param name="parameters"></param>
         /// <returns></returns>
         /// <exception cref="System.NotImplementedException"></exception>
-        public async Task<List<TTo>> MapSingleToListAsync<TTo>(object fromObject, string uniqueRecordId = null, string language = null, params object[] parameters)
+        public async Task<List<TTo>> MapSingleToListAsync<TTo>(object fromObject, string uniqueIdentity = null, string language = null, params object[] parameters)
         {
             return new List<TTo>()
             {
@@ -148,12 +148,12 @@ namespace EasyMicroservices.Mapper.Providers
         /// </summary>
         /// <typeparam name="TTo"></typeparam>
         /// <param name="fromObject"></param>
-        /// <param name="uniqueRecordId"></param>
+        /// <param name="uniqueIdentity"></param>
         /// <param name="language"></param>
         /// <param name="parameters"></param>
         /// <returns></returns>
         /// <exception cref="System.NotImplementedException"></exception>
-        public async Task<TTo> MapToFirstAsync<TTo>(IEnumerable fromObject, string uniqueRecordId = null, string language = null, params object[] parameters)
+        public async Task<TTo> MapToFirstAsync<TTo>(IEnumerable fromObject, string uniqueIdentity = null, string language = null, params object[] parameters)
         {
             if (fromObject == null)
                 return default;
@@ -169,12 +169,12 @@ namespace EasyMicroservices.Mapper.Providers
         /// </summary>
         /// <typeparam name="TTo"></typeparam>
         /// <param name="fromObject"></param>
-        /// <param name="uniqueRecordId"></param>
+        /// <param name="uniqueIdentity"></param>
         /// <param name="language"></param>
         /// <param name="parameters"></param>
         /// <returns></returns>
         /// <exception cref="System.NotImplementedException"></exception>
-        public async Task<List<TTo>> MapToListAsync<TTo>(IEnumerable fromObject, string uniqueRecordId = null, string language = null, params object[] parameters)
+        public async Task<List<TTo>> MapToListAsync<TTo>(IEnumerable fromObject, string uniqueIdentity = null, string language = null, params object[] parameters)
         {
             if (fromObject == null)
                 return default;
@@ -182,6 +182,50 @@ namespace EasyMicroservices.Mapper.Providers
             foreach (var item in fromObject)
             {
                 result.Add(await MapAsync<TTo>(item));
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TFrom"></typeparam>
+        /// <typeparam name="TTo"></typeparam>
+        /// <param name="fromObject"></param>
+        /// <param name="uniqueIdentity"></param>
+        /// <param name="language"></param>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
+        public Dictionary<TFrom, TTo> MapToDictionary<TFrom, TTo>(IEnumerable<TFrom> fromObject, string uniqueIdentity = null, string language = null, params object[] parameters)
+        {
+            if (fromObject == null)
+                return default;
+            Dictionary<TFrom, TTo> result = new();
+            foreach (var item in fromObject)
+            {
+                result.Add(item, Map<TTo>(item));
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TFrom"></typeparam>
+        /// <typeparam name="TTo"></typeparam>
+        /// <param name="fromObject"></param>
+        /// <param name="uniqueIdentity"></param>
+        /// <param name="language"></param>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
+        public async Task<Dictionary<TFrom, TTo>> MapToDictionaryAsync<TFrom, TTo>(IEnumerable<TFrom> fromObject, string uniqueIdentity = null, string language = null, params object[] parameters)
+        {
+            if (fromObject == null)
+                return default;
+            Dictionary<TFrom, TTo> result = new();
+            foreach (var item in fromObject)
+            {
+                result.Add(item, await MapAsync<TTo>(item));
             }
             return result;
         }

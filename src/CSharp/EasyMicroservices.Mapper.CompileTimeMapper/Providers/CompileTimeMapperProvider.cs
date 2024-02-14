@@ -64,12 +64,12 @@ namespace EasyMicroservices.Mapper.CompileTimeMapper.Providers
         /// </summary>
         /// <typeparam name="TTo"></typeparam>
         /// <param name="fromObject"></param>
-        /// <param name="uniqueRecordId"></param>
+        /// <param name="uniqueIdentity"></param>
         /// <param name="language"></param>
         /// <param name="parameters"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public override TTo Map<TTo>(object fromObject, string uniqueRecordId = null, string language = null, params object[] parameters)
+        public override TTo Map<TTo>(object fromObject, string uniqueIdentity = null, string language = null, params object[] parameters)
         {
             if (fromObject == null)
                 return default;
@@ -77,11 +77,11 @@ namespace EasyMicroservices.Mapper.CompileTimeMapper.Providers
             {
                 if (mappers.TryGetValue(typeof(TTo), out IMapper mapper))
                 {
-                    return (TTo)mapper.MapObject(fromObject, uniqueRecordId, language, parameters);
+                    return (TTo)mapper.MapObject(fromObject, uniqueIdentity, language, parameters);
                 }
             }
             if (_backupMapperProvider != null)
-                return _backupMapperProvider.Map<TTo>(fromObject, uniqueRecordId, language, parameters);
+                return _backupMapperProvider.Map<TTo>(fromObject, uniqueIdentity, language, parameters);
             throw new Exception($"mapper not found for {fromObject.GetType()} and {typeof(TTo)}");
         }
 
@@ -90,12 +90,12 @@ namespace EasyMicroservices.Mapper.CompileTimeMapper.Providers
         /// </summary>
         /// <typeparam name="TTo"></typeparam>
         /// <param name="fromObject"></param>
-        /// <param name="uniqueRecordId"></param>
+        /// <param name="uniqueIdentity"></param>
         /// <param name="language"></param>
         /// <param name="parameters"></param>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
-        public override async Task<TTo> MapAsync<TTo>(object fromObject, string uniqueRecordId = null, string language = null, params object[] parameters)
+        public override async Task<TTo> MapAsync<TTo>(object fromObject, string uniqueIdentity = null, string language = null, params object[] parameters)
         {
             if (fromObject == null)
                 return default;
@@ -103,11 +103,11 @@ namespace EasyMicroservices.Mapper.CompileTimeMapper.Providers
             {
                 if (mappers.TryGetValue(typeof(TTo), out IMapper mapper))
                 {
-                    return (TTo)await mapper.MapObjectAsync(fromObject, uniqueRecordId, language, parameters);
+                    return (TTo)await mapper.MapObjectAsync(fromObject, uniqueIdentity, language, parameters);
                 }
             }
             if (_backupMapperProvider != null)
-                return await _backupMapperProvider.MapAsync<TTo>(fromObject, uniqueRecordId, language, parameters);
+                return await _backupMapperProvider.MapAsync<TTo>(fromObject, uniqueIdentity, language, parameters);
             throw new Exception($"mapper not found for {fromObject.GetType()} and {typeof(TTo)}");
         }
     }

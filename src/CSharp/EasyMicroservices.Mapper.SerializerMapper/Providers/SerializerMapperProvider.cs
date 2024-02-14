@@ -38,12 +38,12 @@ namespace EasyMicroservices.Mapper.SerializerMapper.Providers
         /// </summary>
         /// <typeparam name="TTo"></typeparam>
         /// <param name="fromObject"></param>
-        /// <param name="uniqueRecordId"></param>
+        /// <param name="uniqueIdentity"></param>
         /// <param name="language"></param>
         /// <param name="parameters"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public override TTo Map<TTo>(object fromObject, string uniqueRecordId = default, string language = default, params object[] parameters)
+        public override TTo Map<TTo>(object fromObject, string uniqueIdentity = default, string language = default, params object[] parameters)
         {
             if (_textSerialization != null)
                 return _textSerialization.Deserialize<TTo>(_textSerialization.Serialize(fromObject));
